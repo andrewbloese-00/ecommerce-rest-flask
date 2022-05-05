@@ -8,7 +8,7 @@ from unicodedata import category
 from uuid import uuid4
 from flask import Flask, abort, request, jsonify, g
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import JSON
+from sqlalchemy import JSON, false, true
 from sqlalchemy.dialects.sqlite import insert
 from flask_httpauth import HTTPBasicAuth
 import jwt
@@ -33,9 +33,6 @@ def hello():
 db = SQLAlchemy(app)
 
 auth = HTTPBasicAuth()
-
-
-
 
 class Order( db.Model ): 
     __tablename__ = "orders"
@@ -77,6 +74,25 @@ class User( db.Model ):
     id = db.Column(db.String, primary_key=True)
     email = db.Column(db.String(32), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    orders=db.Column(db.String)
+    address_saved=db.Column(db.String)
+    def jsonified(self):
+        return "{" + f"'id':'{self.id}' , 'email','{self.email}' , 'orders':'{self.orders}'"
+    
+    def add_order(self , order_ref ) -> bool:
+        listy = list(self.orders.split(","))
+        og_len = len(listy)
+        listy.insert(0,order_ref)
+        new_len = len(listy)
+        if new_len - og_len == 1:
+            self.orders = ",".join(listy)
+            db.session.commit()
+            return True
+        else: 
+            print("Error adding order to list. ")
+            return False
+
+
 
     def hashword(self, password):
         self.password_hash = generate_password_hash(password)
@@ -153,10 +169,13 @@ def get_auth_token():
     return jsonify({'token': token.decode('ascii'), 'duration': (5 * MINUTE)})
 
 
-@app.route('/api/resource')
+@app.route('/api/user_details')
 @auth.login_required
-def get_resource():
-    return jsonify({'data': 'Hello, %s!' % g.user.username})
+def get_user():
+    if g.user is None : 
+        return respond_fail("No error logged in. Unauthorized")
+    else:
+        return respond(g.user.jsonified())
 
 
 
