@@ -25,7 +25,7 @@ error_response: {
 
 	“success”: “false”
 
-	“error” : “&lt;some error message>”
+	“error” : “<some error message>”
 
 }
 
@@ -81,7 +81,7 @@ options: String
 
 > payload = &lt; product with matching id > 
 
-**[Restricted] POST **/api/product/create 
+**[Restricted] POST** /api/product/create 
 
 > inserts a new product into the sqlite database and then returns the created product if successful. 
 
@@ -89,11 +89,11 @@ options: String
 
 > payload = &lt; created product || err > 
 
-**[Restricted] PUT **/api/products/update/&lt;id>
+**[Restricted] PUT** /api/products/update/&lt;id>
 
 > finds a product with an id matching the &lt;id> param and the updates it with provided data (see req.body)
 
-> req.params = id &lt;— the ID of the product to be updated
+> req.params = id ( the ID of the product to be updated )
 
 > req.body = any valid product field(s) and new value
 
@@ -126,7 +126,7 @@ options: String,
    </td>
    <td>request.headers: { 
 <p>
-	… , zaza_admin_token: &lt;SECRET>  
+	… , zaza_admin_token: <SECRET>  
 <p>
 } 
 <p>
@@ -140,9 +140,6 @@ options: String,
 ### Orders
 
 ---
-
-
-
 #### Schema: 
 
 {
@@ -176,24 +173,17 @@ transaction_ref: String
 
  > payload = […products]
 
-**GET **/api/orders/&lt;id>
+**GET** /api/orders/<id>
 
 > params: id ( the id of the desired order)
 
-> payload = &lt; order with matching id > 
+> payload = { order with matching id }
 
 
 ---
-
-
 ### Transaction
-
 ---
-
-
-
 #### Schema: 
-
 {
 
 id : String , **PRIMARY KEY
@@ -223,24 +213,15 @@ total: Integer,
 
  > payload = […products]
 
-**GET **/api/transactions/&lt;id>
+**GET** /api/transactions/<id>
 
 > params: id ( the id of the desired order)
 
-> payload = &lt; order with matching id > 
-
-
+> payload = { ...order with matching id }
 ---
-
-
 ### User
-
 ---
-
-
-
 #### Schema: 
-
 {
 
 id : String , **PRIMARY KEY
@@ -259,10 +240,9 @@ orders: String
 
 ** the orders property is a stringified array of orderId’s that the customer has 
 
-
 #### Routes:
 
-**POST **/api/users/ 
+**POST** /api/users/ 
 
  > a combined route that handles login and register. If new user is 
 
