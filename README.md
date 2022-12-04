@@ -7,6 +7,7 @@ API Response Formats:
 
 
 #### Successful Response
+```
 
 response: { 
 
@@ -17,10 +18,10 @@ response: {
 	
 
 } 
-
+```
 
 #### Failed Response
-
+```
 error_response: {
 
 	“success”: “false”
@@ -28,7 +29,7 @@ error_response: {
 	“error” : “<some error message>”
 
 }
-
+```
 
 ### **Dependencies  ** 
 
@@ -45,24 +46,26 @@ error_response: {
 
 
 #### Schema: 
+```
 
-{
+ {
 
-id : String , **PRIMARY KEY
+	id : String , **PRIMARY KEY
 
-name:String ,
+	name:String ,
 
-description:String , 
+	description:String , 
 
-price: Integer , 
+	price: Integer , 
 
-in_stock: Integer , 
+	in_stock: Integer , 
 
-category: String ,
+	category: String ,
 
-options: String
+	options: String
 
-}
+ }
+```
 
 ** The category field is used for filtering items and the options are an optional field that corresponds to different product variants ( color , size , etc . . . ) 
 
