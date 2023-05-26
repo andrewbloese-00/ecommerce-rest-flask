@@ -1,4 +1,12 @@
-# Zaza Goods RESTful API Reference 
+# REST Server with FLASK and SQLite
+
+A rest API to fetch data from an sqlite database. Contains tables for... 
+* Users - features password hashing and json web token authentication
+* Products - a table to be filled with products for the store
+* Orders - a table to store orders placed on the store. Track the completion of orders and search order ids
+* Transactions - detailed reports of subtotal, tax amount and shipping as well as a reference id to the corresponding order
+
+The server was built using Python's Flask Library and SQLite for the database. 
 
 
 
